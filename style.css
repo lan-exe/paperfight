@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(120deg, #ebf4f5, #b5c6e0);
+  color: #2c3e50;
+  overflow-x: hidden;
+  cursor:crosshair;
+  position: relative;
+}
+
+
+/* ===================== Animations ===================== */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===================== Commander Message ===================== */
+.commander-msg {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(255,255,255,0.85);
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  max-width: 320px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 15;
+  animation: fadeInUp 1.2s ease-out forwards;
+  opacity: 0;
+  transform: translateY(30px);
+  animation-delay: 0.2s;
+}
+
+.commander-msg img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.1));
+}
+
+/* ===================== Score Display ===================== */
+
+.score-display {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  text-align: right;
+  z-index: 15;
+  animation: slideInRight 1s ease-out forwards;
+  opacity: 0;
+  transform: translateX(50px);
+  animation-delay: 0.3s;
+}
+/* ===================== Main Layout ===================== */
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding-top: 80px;
+  z-index: 10;
+  position: relative;
+}
+
+h2 {
+  margin-bottom: 2rem;
+  font-weight: 600;
+  font-size: 1.8rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* ===================== Card Container ===================== */
+.card-container {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  max-width: 900px;
+  width: 100%;
+  padding: 0 20px;
+  animation: fadeInScale 1.4s ease-out forwards;
+  opacity: 0;
+  transform: scale(0.8);
+  animation-delay: 0.5s;
+}
+
+.card {
+  width: 180px;
+  height: 200px;
+  background: linear-gradient(120deg, #6d90b9, #bbc7dc);
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.card img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+/* ===================== Paper Planes ===================== */
+.paper-plane {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  fill: #ffffffdd;
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.15));
+  opacity: 0.7;
+  animation-timing-function: linear;
+  will-change: transform;
+  z-index: 5;
+}
+
+@keyframes fly-diagonal {
+  0% {
+    transform: translateX(-60px) translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(110vw) translateY(-60px) rotate(30deg);
+    opacity: 0;
+  }
+}
+
+/* ===================== Logout Button ===================== */
+#logoutBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 15px;
+  font-size: 0.9rem;
+  background: linear-gradient(120deg, #6d90b9, #bbc7dc);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  z-index: 20;
+}
+#aboutUsBtn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  padding: 10px 15px;
+  font-size: 0.9rem;
+  background: linear-gradient(120deg, #30c5d2, #471069);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  z-index: 20;
+}
+#mobileBtn {
+  position: fixed;
+  top: 110px;
+  right: 10px;
+  padding: 10px 15px;
+  font-size: 0.9rem;
+  background: linear-gradient(120deg, #392d69, #b57bee);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: grab;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  z-index: 20;
+}

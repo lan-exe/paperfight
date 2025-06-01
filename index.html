@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Naut Games</title>
+  <link rel="icon" type="image/png" href="assets/naut.png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .login-box {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 2.5rem 3rem;
+      border-radius: 15px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 600px;
+      backdrop-filter: blur(8px);
+    }
+
+    .login-box h1 {
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+      color: #34495e;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #34495e;
+      display: block;
+      margin-bottom: 0.4rem;
+      text-align: left;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 0.6rem 1rem;
+      font-size: 1rem;
+      border: 2px solid #3498db;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: #2980b9;
+    }
+
+    button {
+      margin-top: 1.8rem;
+      width: 100%;
+      background: #2980b9;
+      color: white;
+      font-weight: 600;
+      font-size: 1.15rem;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(41,128,185,0.4);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #3498db;
+      box-shadow: 0 8px 25px rgba(52,152,219,0.6);
+    }
+
+    .paper-plane {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      fill: #ffffffdd;
+      filter: drop-shadow(0 0 2px rgba(0,0,0,0.15));
+      opacity: 0.7;
+      animation-timing-function: linear;
+      will-change: transform;
+    }
+
+    @keyframes fly-diagonal {
+      0% {
+        transform: translateX(-60px) translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(110vw) translateY(-60px) rotate(30deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <form class="login-box" id="loginForm">
+    <h1>Before you start the plane!</h1>
+    <label for="username">Enter username:</label>
+    <input type="text" id="username" name="username" required autocomplete="off" />
+    <button type="submit">Start Game</button>
+  </form>
+</div>
+
+<!-- Paper Plane SVG Template (Hidden) -->
+<svg style="display:none;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="plane-svg">
+  <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+</svg>
+
+<script>
+  // Prefill username if stored
+  const savedUsername = localStorage.getItem('username');
+  if (savedUsername) {
+    document.getElementById('username').value = savedUsername;
+  }
+
+  // Paper planes (no delay)
+  const NUM_PLANES = 24;
+  for(let i = 0; i < NUM_PLANES; i++) {
+    const plane = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    plane.setAttribute("viewBox", "0 0 24 24");
+    plane.setAttribute("class", "paper-plane");
+    plane.innerHTML = '<path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>';
+    
+    const size = 20 + Math.random() * 30;
+    plane.style.width = size + "px";
+    plane.style.height = size + "px";
+    plane.style.bottom = Math.random() * window.innerHeight + "px";
+    plane.style.left = "-60px";
+    
+    const duration = 12 + Math.random() * 8;
+    plane.style.animation = `fly-diagonal ${duration}s linear infinite`;
+    plane.style.animationDelay = "0s";
+
+    document.body.appendChild(plane);
+  }
+
+  // Handle login form submission
+  const form = document.getElementById('loginForm');
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const username = document.getElementById('username').value.trim();
+    if (!username) {
+      alert('Please enter a username!');
+      return;
+    }
+
+    localStorage.setItem('username', username); // Remember long term
+    sessionStorage.setItem('username', username); // Session use
+
+    window.location.href = 'match.html';
+  });
+</script>
+
+</body>
+</html>

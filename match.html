@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Naut Games</title>
+  <link rel="icon" type="image/png" href="assets/naut.png">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Commander Message -->
+  <div class="commander-msg" id="commanderMessage">
+    <img src="https://freedesignfile.com/upload/2023/09/Pilot-3D-professions-icon-vector.jpg" alt="Pilot Image" />
+    <div></div>
+  </div>
+
+  <!-- Score Display -->
+  <div class="score-display" id="scoreDisplay">
+    <div>ʟᴀꜱᴛ ꜱᴄᴏʀᴇ: <span id="lastScore">0</span></div>
+    <div>ʙᴇꜱᴛ ꜱᴄᴏʀᴇ: <span id="bestScore">0</span></div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main" id="mainContent">
+    <h2>Select your battlefield type:</h2>
+    <div class="card-container">
+      <div class="card summer" onclick="location.href='summer.html'" role="button" tabindex="0">
+        <img src="https://cdn-icons-png.flaticon.com/512/869/869869.png" alt="Summer Icon representing summer battlefield" />
+        𝕊𝕦𝕞𝕞𝕖𝕣
+      </div>
+      <div class="card winter" onclick="location.href='winter.html'" role="button" tabindex="0">
+        <img src="https://cdn-icons-png.flaticon.com/512/642/642102.png" alt="Winter Icon representing winter battlefield" />
+        𝕊𝕟𝕠𝕨𝕪
+      </div>
+      <div class="card rain" onclick="location.href='rainy.html'" role="button" tabindex="0">
+        <img src="https://cdn-icons-png.flaticon.com/512/414/414974.png" alt="Rain Icon representing rainy battlefield" />
+        ℝ𝕒𝕚𝕟𝕪
+      </div>
+      <div class="card windy" onclick="location.href='windy.html'" role="button" tabindex="0">
+        <img src="https://cdn-icons-png.flaticon.com/512/3078/3078114.png" alt="Windy Icon representing windy battlefield" />
+        𝕎𝕚𝕟𝕕𝕪
+      </div>
+    </div>
+  </div>
+
+  <!-- About Us Button -->
+  <button id="aboutUsBtn" aria-label="Go to About Us page" onclick="location.href='aboutus.html'">
+    ᴀʙᴏᴜᴛ ᴜꜱ &#8594;
+  </button>
+   <!-- Mobile -->
+  <button id="mobileBtn" aria-label="Go to mobile style" onclick="location.href='mobile.html'">
+    𝐌𝐨𝐛𝐢𝐥𝐞 𝐦𝐨𝐝𝐞 📲
+  </button>
+
+  <!-- Logout Button -->
+  <button id="logoutBtn">Log Out</button>
+
+  <!-- JavaScript -->
+  <script>
+    const NUM_PLANES = 24;
+    for (let i = 0; i < NUM_PLANES; i++) {
+      const plane = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      plane.setAttribute("viewBox", "0 0 24 24");
+      plane.setAttribute("class", "paper-plane");
+      plane.innerHTML = '<path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>';
+
+      const size = 20 + Math.random() * 30;
+      plane.style.width = size + "px";
+      plane.style.height = size + "px";
+      plane.style.bottom = Math.random() * window.innerHeight + "px";
+      plane.style.left = "-60px";
+
+      const duration = 12 + Math.random() * 8;
+      plane.style.animation = `fly-diagonal ${duration}s linear infinite`;
+
+      document.body.appendChild(plane);
+    }
+
+    // Commander Message
+    const username = localStorage.getItem('username') || 'Pilot';
+    document.querySelector('.commander-msg div').innerHTML = `
+      <strong>Welcome ${username}!</strong><br>
+      It's time to eliminate the enemies!<br>
+      I'm your commander, 𝐍𝐚𝐮𝐭. Let's take off now!
+    `;
+
+    // Load Scores
+    document.getElementById('lastScore').textContent = localStorage.getItem('lastScore') || 0;
+    document.getElementById('bestScore').textContent = localStorage.getItem('bestScore') || 0;
+
+    // Logout with UI reset then redirect
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      sessionStorage.removeItem('username');
+      localStorage.removeItem('username');
+
+      // Reset UI elements
+      document.getElementById('lastScore').textContent = '0';
+      document.getElementById('bestScore').textContent = '0';
+      document.getElementById('commanderMessage').style.display = 'none';
+      document.getElementById('scoreDisplay').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'none';
+
+      // Redirect after short delay
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 300);
+    });
+  </script>
+
+  <script src="effects.js" defer></script>
+</body>
+</html>
